@@ -32,7 +32,9 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(Long id) {
-        employeeRepository.deleteEmployeeById(id);
+        Employee employee =employeeRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Employee with ID = " + id + " doesn't exist."));
+        employeeRepository.delete(employee);
     }
 
     public Employee findEmployeeById(Long id) {
